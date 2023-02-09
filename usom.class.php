@@ -70,15 +70,23 @@ class usom {
         }
 
         if($usom_info["totalCount"]) {
+            foreach($usom_info["models"] as $model) {
+                if($model["url"]==$url) {
+                    return [
+                        "status" => 0,
+                        "url" => $usom_info["models"][0]["url"],
+                        "type" => $usom_info["models"][0]["type"],
+                        "description" => $description_info[$searchLang."title"],
+                        "sourceFrom" => $source_info[$searchLang."title"],
+                        "connectionType" => $connection_info[$searchLang."title"],
+                        "created_date" => $usom_info["models"][0]["date"],
+                        "criticality_level" => $usom_info["models"][0]["criticality_level"]
+                    ];
+                }
+            }
+
             return [
-                "status" => 0,
-                "url" => $usom_info["models"][0]["url"],
-                "type" => $usom_info["models"][0]["type"],
-                "description" => $description_info[$searchLang."title"],
-                "sourceFrom" => $source_info[$searchLang."title"],
-                "connectionType" => $connection_info[$searchLang."title"],
-                "created_date" => $usom_info["models"][0]["date"],
-                "criticality_level" => $usom_info["models"][0]["criticality_level"]
+                "status" => 1
             ];
         } else {
             return [
